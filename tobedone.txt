@@ -1,0 +1,31 @@
+Things to change 
+
+1.Add things like new product in their categories, most bought ones on the landing page and also fresh sales things like learn how e-commerce sites works like alibaba
+kikuu and others , add filters also on the products page in the customer part so that the user can be able to filter out things easily for him / her
+
+2.Add more sections on the landing page with things like feedbacks and other useful things like events some kinda of banners saying flash sales things like that 
+that are also functional to attract users also and with their respective images
+
+3. On bouquet builder use real and available models that will work well using this as reference search more about it https://www.bridalbouquetbuilder.com/ to know
+how bouquet builder works and how they are visible on the other section
+
+4. Change the toast to use white and black or other system colors not that green and make the error one also not that dark but light 
+5. On admin dashboard if money and also all over the system if the money reaches to 1,000 change it to 1k and when it reaches to 1000k change it to 1M
+
+6. On orders on status to deliver don't click the button just find a way to make it so that it is well designed 
+
+7. Find another option to replace stripe that is easy for testing purposes only that is easy to use and test and read it's api documentation
+8. Remove this Atelier Admin in the footer 
+9. The overlay on login and register on their images you can darken it somehow and also on register and logging in add an eye to show password and 
+also in the changing password the user must put the current password and also change it on their also add an eye so that the user can see the new 
+passwords and repeating them 
+
+10. On products card add addtocart button and other useful things like flash sales, discounts, new codes and other things like that and also to be visible
+as banners on the landing page 
+
+11. Add our social media icons all of them with their respective icons 
+
+12. While Selecting scheduled on on delivery on checkout choosing a date isn't working and set a reminder when the time is going to reach that date like
+before 1 day and also before like 5hrs before 
+
+
