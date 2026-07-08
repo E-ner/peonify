@@ -20,7 +20,7 @@ router.get("/", async (req, res, next) => {
     }
     const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
     const { rows } = await pool.query(
-      `SELECT * FROM products ${where} ORDER BY id`,
+      `SELECT * FROM products ${where} ORDER BY created_at DESC, id DESC`,
       params
     );
     res.json(rows);

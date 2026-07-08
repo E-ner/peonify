@@ -70,7 +70,7 @@ router.post("/products", async (req, res, next) => {
     }
     const { rows } = await pool.query(
       `INSERT INTO products (${PRODUCT_FIELDS.join(",")})
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
       PRODUCT_FIELDS.map((f) => p[f])
     );
     res.status(201).json(rows[0]);
