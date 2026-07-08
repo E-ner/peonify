@@ -1,0 +1,372 @@
+/* Small helpers for the PHP static layout on top of frontend Tailwind build */
+#cart-list li,
+#my-orders li,
+#my-notifications li,
+#admin-orders li,
+#top-products li {
+  list-style: none;
+}
+
+body {
+  font-family: "Jost", "Geist Variable", sans-serif;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* Global polish for non-auth pages */
+body:not(.page-login):not(.page-signup) {
+  background:
+    radial-gradient(circle at top right, rgba(138, 43, 88, 0.04), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(181, 133, 40, 0.05), transparent 30%),
+    var(--background);
+}
+
+header.sticky {
+  border-bottom: 1px solid color-mix(in oklab, var(--border), white 20%);
+  backdrop-filter: blur(10px);
+}
+
+header.sticky nav a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: all .2s ease;
+}
+
+header.sticky nav a:hover {
+  color: var(--foreground);
+  background: var(--accent);
+}
+
+.nav-cart-link {
+  margin-left: 0.25rem;
+  color: var(--foreground);
+  border-color: color-mix(in oklab, var(--border), white 8%);
+  background: color-mix(in oklab, var(--card), white 2%);
+  min-height: 2rem;
+}
+
+.nav-cart-link i[data-lucide] {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.nav-cart-link:hover {
+  background: var(--accent) !important;
+}
+
+.nav-cart-link.is-active {
+  background: var(--secondary);
+  border-color: color-mix(in oklab, var(--border), white 18%);
+}
+
+.nav-cart-count {
+  position: absolute;
+  top: -0.45rem;
+  right: -0.45rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.25rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 1px solid color-mix(in oklab, var(--background), white 70%);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px color-mix(in oklab, var(--primary), transparent 72%);
+}
+
+main section {
+  position: relative;
+}
+
+.rounded-xl.border.bg-card,
+[class*="rounded-xl border bg-card"] {
+  border-color: color-mix(in oklab, var(--border), white 18%);
+  box-shadow: 0 10px 24px rgba(22, 17, 17, 0.04);
+}
+
+input, textarea, select {
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: color-mix(in oklab, var(--primary), white 15%);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary), transparent 82%);
+}
+
+button, a.rounded-md {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+button:hover, a.rounded-md:hover {
+  transform: translateY(-1px);
+}
+
+.bg-primary {
+  box-shadow: 0 8px 20px color-mix(in oklab, var(--primary), transparent 80%);
+}
+
+.divide-y > * {
+  border-color: color-mix(in oklab, var(--border), white 22%) !important;
+}
+
+footer {
+  border-top-color: color-mix(in oklab, var(--border), white 20%);
+}
+
+/* Uniform product/media cards */
+#products article img,
+.product-media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+/* Lucide icon sizing consistency */
+[data-lucide] {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+}
+
+/* Shop page visual parity improvements */
+#shop-search,
+#shop-collection,
+#shop-sort {
+  border-color: color-mix(in oklab, var(--border), white 10%);
+  background: color-mix(in oklab, var(--background), white 3%);
+  color: var(--foreground);
+}
+
+#shop-search {
+  height: 2rem;
+}
+
+#shop-collection,
+#shop-sort {
+  height: 1.75rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) calc(50% - 2px),
+    calc(100% - 9px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  appearance: none;
+  padding-right: 1.8rem;
+}
+
+.shop-tabs-list {
+  border-color: color-mix(in oklab, var(--border), white 12%);
+  background: color-mix(in oklab, var(--muted), transparent 40%);
+}
+
+.shop-cat-btn {
+  height: 1.75rem;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  font-weight: 500;
+  background: transparent;
+  box-shadow: none;
+}
+
+.shop-cat-btn.shop-cat-active {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: color-mix(in oklab, var(--border), white 12%);
+  box-shadow: 0 1px 2px rgba(17, 12, 18, 0.09);
+}
+
+#shop-sale-toggle {
+  border-color: color-mix(in oklab, var(--border), white 8%);
+  background: var(--background);
+}
+
+#shop-sale-toggle.shop-toggle-active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: color-mix(in oklab, var(--primary), white 10%);
+}
+
+#shop-sale-toggle.shop-toggle-active i[data-lucide] {
+  color: var(--primary-foreground) !important;
+}
+
+#products article {
+  border-color: color-mix(in oklab, var(--border), white 20%);
+  box-shadow: 0 12px 24px rgba(33, 18, 26, 0.06);
+}
+
+#products article h3 {
+  margin-top: 0.65rem;
+  line-height: 1.2;
+}
+
+#products .add-cart-btn {
+  color: white;
+}
+
+/* Product detail page parity */
+.product-media-square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+#product-actions button {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+#review-stars .review-star-btn {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: color-mix(in oklab, var(--muted-foreground), transparent 60%);
+  padding: 0;
+}
+
+#review-stars .review-star-btn:hover {
+  transform: none;
+}
+
+#review-stars .review-star-btn i[data-lucide] {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+#review-stars .review-star-btn.is-active {
+  color: var(--primary);
+}
+
+#review-stars .review-star-btn.is-active svg {
+  fill: var(--primary);
+}
+
+/* Builder page parity */
+.builder-step-chip {
+  border-color: color-mix(in oklab, var(--border), white 10%);
+  color: var(--muted-foreground);
+  background: var(--background);
+}
+
+.builder-step-chip.is-current {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: color-mix(in oklab, var(--primary), white 12%);
+}
+
+.builder-step-chip.is-done:not(.is-current) {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.builder-option-card {
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.builder-option-card:hover {
+  border-color: color-mix(in oklab, var(--primary), white 30%);
+  box-shadow: 0 10px 24px rgba(29, 20, 27, 0.08);
+}
+
+.builder-option-card.is-selected {
+  border-color: color-mix(in oklab, var(--primary), white 20%);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary), transparent 70%);
+}
+
+/* Checkout parity */
+.checkout-radio-card {
+  border-color: color-mix(in oklab, var(--border), white 12%);
+  transition: border-color .18s ease, background-color .18s ease;
+}
+
+.checkout-radio-card.is-active {
+  border-color: color-mix(in oklab, var(--primary), white 20%);
+  background: color-mix(in oklab, var(--secondary), transparent 45%);
+}
+
+#checkout-main .rounded-xl.border.bg-card {
+  box-shadow: 0 10px 22px rgba(20, 14, 19, 0.05);
+}
+
+/* Account tabs */
+.tab-btn.is-active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: color-mix(in oklab, var(--primary), white 12%);
+}
+
+#tab-orders #my-orders > li {
+  box-shadow: 0 8px 18px rgba(21, 14, 19, 0.05);
+}
+
+/* Toast notifications */
+#toast-root {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 60;
+}
+
+.toast {
+  pointer-events: auto;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--background), var(--primary) 6%);
+  border: 1px solid color-mix(in oklab, var(--primary), white 65%);
+  color: var(--foreground);
+  box-shadow: 0 16px 40px rgba(17, 12, 18, 0.22);
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast i[data-lucide] {
+  color: var(--primary);
+}
+
+.toast.toast-error {
+  border-color: color-mix(in oklab, var(--destructive), white 65%);
+  background: color-mix(in oklab, var(--background), var(--destructive) 9%);
+}
+
+.toast.toast-error i[data-lucide] {
+  color: var(--destructive);
+}
+
+.toast.toast-warning {
+  border-color: color-mix(in oklab, #d97706, white 60%);
+  background: color-mix(in oklab, var(--background), #d97706 10%);
+}
+
+.toast.toast-warning i[data-lucide] {
+  color: #d97706;
+}

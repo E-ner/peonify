@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peonify | PHP MVC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/index-_ADhqyCK.css" />
+    <link rel="stylesheet" href="/assets/app.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="/assets/index.js"></script>
+</head>
+<body class="bg-background text-foreground">
+    <header class="sticky top-0 z-50 border-b bg-background/85 backdrop-blur-md">
+      <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <a href="#" class="flex flex-col leading-none">
+          <span class="font-heading text-2xl font-semibold tracking-wide">Peonify</span>
+          <span class="text-[10px] uppercase tracking-[0.35em] text-muted-foreground">Floral Atelier</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-2">
+          <a class="px-3 py-1.5 rounded-md hover:bg-accent" href="/index.php?page=home">Home</a>
+          <a class="px-3 py-1.5 rounded-md hover:bg-accent" href="/index.php?page=shop">Shop</a>
+          <a class="px-3 py-1.5 rounded-md hover:bg-accent" href="/index.php?page=builder">Bouquet Builder</a>
+          <a class="px-3 py-1.5 rounded-md hover:bg-accent" href="/index.php?page=account">Account</a>
+          <a class="px-3 py-1.5 rounded-md hover:bg-accent" href="/index.php?page=admin">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <section data-page="home" class="overflow-hidden bg-gradient-to-b from-secondary/70 via-secondary/30 to-background">
+      <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 py-16 lg:grid-cols-2 lg:py-24">
+        <div class="text-center lg:text-left">
+          <span class="inline-flex rounded-md bg-secondary px-3 py-1 text-xs tracking-[0.3em] uppercase">Luxury Floral Atelier</span>
+          <h1 class="mt-6 font-heading text-5xl leading-tight font-medium sm:text-6xl xl:text-7xl">
+            Peonies, curated.<br />Delivered like clockwork.
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-muted-foreground lg:mx-0">
+            PHP + MySQL + vanilla JS version, matching your original storefront and admin experience.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <button class="inline-flex items-center rounded-md bg-primary px-4 py-2 text-primary-foreground" data-nav="shop">Shop the Collection</button>
+            <button class="inline-flex items-center rounded-md border px-4 py-2" data-nav="builder">Build Your Bouquet</button>
+          </div>
+        </div>
+        <div id="hero-3d" class="relative mx-auto w-full max-w-md" style="perspective:1200px">
+          <div id="hero-card" class="relative transition-transform duration-200 ease-out" style="transform-style:preserve-3d">
+            <img src="/images/hero.jpg" class="aspect-[4/5] w-full rounded-2xl object-cover shadow-2xl" alt="Hero bouquet" />
+            <div class="absolute -bottom-5 right-6 rounded-full border bg-background/95 py-2 pr-4 pl-3 shadow-lg backdrop-blur">
+              <span class="text-xs font-medium">5.0 Customer Love</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="mx-auto max-w-6xl px-4 py-10 space-y-10">
+        <section id="auth" data-page="auth">
+            <h2 class="font-heading text-3xl font-medium">Authentication</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="rounded-xl border bg-card p-5 space-y-2">
+                    <h3 class="font-heading text-xl">Login</h3>
+                    <input id="login-email" class="w-full rounded-md border px-3 py-2" placeholder="Email" value="admin@peonify.com" />
+                    <input id="login-password" class="w-full rounded-md border px-3 py-2" type="password" placeholder="Password" value="peonify-admin" />
+                    <button id="login-btn" class="inline-flex rounded-md bg-primary px-4 py-2 text-primary-foreground">Login</button>
+                    <p id="me-badge" class="text-sm text-muted-foreground"></p>
+                </div>
+                <div class="rounded-xl border bg-card p-5 space-y-2">
+                    <h3 class="font-heading text-xl">Register</h3>
+                    <input id="signup-name" class="w-full rounded-md border px-3 py-2" placeholder="Name" />
+                    <input id="signup-email" class="w-full rounded-md border px-3 py-2" placeholder="Email" />
+                    <input id="signup-password" class="w-full rounded-md border px-3 py-2" type="password" placeholder="Password" />
+                    <button id="signup-btn" class="inline-flex rounded-md border px-4 py-2">Create account</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="shop" data-page="shop">
+            <div class="mb-5 flex items-end justify-between">
+              <h2 class="font-heading text-3xl font-medium">Signature Collection</h2>
+              <button id="open-cart-btn" class="inline-flex rounded-md border px-3 py-2">View Cart</button>
+            </div>
+            <div id="products" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
+        </section>
+
+        <section id="cart" data-page="cart">
+            <h2 class="font-heading text-3xl font-medium">Cart</h2>
+            <div class="rounded-xl border bg-card p-5">
+                <ul id="cart-list"></ul>
+                <p class="mt-4 text-lg"><strong>Total:</strong> <span id="cart-total">$0.00</span></p>
+                <div class="mt-3">
+                    <button id="clear-cart-btn" class="inline-flex rounded-md border px-3 py-2">Clear Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="checkout" data-page="checkout">
+            <h2 class="font-heading text-3xl font-medium">Checkout</h2>
+            <div class="rounded-xl border bg-card p-5 space-y-2">
+                <input id="checkout-name" class="w-full rounded-md border px-3 py-2" placeholder="Customer name" />
+                <input id="checkout-email" class="w-full rounded-md border px-3 py-2" placeholder="Email" />
+                <button id="checkout-btn" class="inline-flex rounded-md bg-primary px-4 py-2 text-primary-foreground">Pay & Place Order</button>
+                <p id="checkout-result" class="text-sm text-muted-foreground"></p>
+            </div>
+        </section>
+
+        <section id="account" data-page="account">
+            <h2 class="font-heading text-3xl font-medium">Account</h2>
+            <div class="rounded-xl border bg-card p-5">
+                <h3>My Orders</h3>
+                <ul id="my-orders"></ul>
+                <h3>My Notifications</h3>
+                <ul id="my-notifications"></ul>
+            </div>
+        </section>
+
+        <section id="builder" data-page="builder">
+            <h2 class="font-heading text-3xl font-medium">Bouquet Builder</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <label class="rounded-xl border bg-card p-4">Size
+                    <select id="size" class="mt-2 w-full rounded-md border px-2 py-2">
+                        <option>Petite</option><option>Classic</option><option>Grand</option>
+                    </select>
+                </label>
+                <label class="rounded-xl border bg-card p-4">Focal Flower
+                    <select id="focal" class="mt-2 w-full rounded-md border px-2 py-2">
+                        <option>Blush Peony</option><option>Coral Charm</option><option>White Peony</option>
+                    </select>
+                </label>
+                <label class="rounded-xl border bg-card p-4">Foliage
+                    <select id="foliage" class="mt-2 w-full rounded-md border px-2 py-2">
+                        <option>Silver Eucalyptus</option><option>Olive Branch</option><option>Ruscus</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <section id="admin" data-page="admin">
+            <div class="mb-4 flex items-center justify-between">
+              <h2 class="font-heading text-3xl font-medium">Admin Dashboard</h2>
+              <button id="seed-everything-btn" class="inline-flex rounded-md border px-3 py-2">Seed Everything</button>
+            </div>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div class="rounded-xl border bg-card p-4 xl:col-span-2"><canvas id="revenueChart"></canvas></div>
+                <div class="rounded-xl border bg-card p-4"><canvas id="statusChart"></canvas></div>
+                <div class="rounded-xl border bg-card p-4">
+                    <h3>Top Sellers</h3>
+                    <ul id="top-products"></ul>
+                </div>
+            </div>
+            <div class="rounded-xl border bg-card p-4 mt-6">
+                <h3>Admin Orders</h3>
+                <ul id="admin-orders"></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-20 border-t bg-secondary/40">
+      <div class="mx-auto max-w-6xl px-4 py-12">
+        <p class="font-heading text-2xl font-semibold">Peonify</p>
+        <p class="mt-2 max-w-xs text-sm text-muted-foreground">Hand-curated luxury florals, delivered with precision.</p>
+        <p class="mt-6 text-xs text-muted-foreground">© 2026 Peonify Floral Atelier. All rights reserved.</p>
+      </div>
+    </footer>
+</body>
+</html>
