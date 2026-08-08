@@ -32,13 +32,26 @@ function migrate(PDO $pdo): void {
         name VARCHAR(120) NOT NULL,
         email VARCHAR(190) NOT NULL UNIQUE,
         password_hash VARCHAR(255) NOT NULL,
-        role ENUM('customer','admin') NOT NULL DEFAULT 'customer',
+        role VARCHAR(40) NOT NULL DEFAULT 'customer',
         avatar_url VARCHAR(255) NOT NULL DEFAULT '',
         phone VARCHAR(40) NOT NULL DEFAULT '',
         address VARCHAR(255) NOT NULL DEFAULT '',
         city VARCHAR(120) NOT NULL DEFAULT '',
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB");
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS roles (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(60) NOT NULL UNIQUE,
+        slug VARCHAR(40) NOT NULL UNIQUE,
+        description VARCHAR(255) NOT NULL DEFAULT '',
+        permissions JSON NOT NULL,
+        color VARCHAR(20) NOT NULL DEFAULT '#6366f1',
+        is_system TINYINT(1) NOT NULL DEFAULT 0,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB");
+
+    $pdo->exec("ALTER TABLE users MODIFY COLUMN role VARCHAR(40) NOT NULL DEFAULT 'customer'");
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS categories (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -158,13 +171,21 @@ function migrate(PDO $pdo): void {
 }
 
 function seed(PDO $pdo): void {
-    // Admin account
-    $has = $pdo->prepare('SELECT id FROM users WHERE email = ?');
-    $has->execute([ADMIN_EMAIL]);
-    if (!$has->fetch()) {
+    $hasAdmin = $pdo->prepare('SELECT id FROM users WHERE email = ?');
+    $hasAdmin->execute([ADMIN_EMAIL]);
+    if (!$hasAdmin->fetch()) {
         $pdo->prepare("INSERT INTO users (name, email, password_hash, role) VALUES ('Atelier Admin', ?, ?, 'admin')")
             ->execute([ADMIN_EMAIL, password_hash(ADMIN_PASSWORD, PASSWORD_BCRYPT, ['cost' => 12])]);
     }
+
+    $roles = [
+        ['admin','Super Administrator','Full access to everything.','["*"]',1,'#ef4444'],
+        ['manager','Manager','Manage orders, products, catalog, reports, and team.','["dashboard","orders","products","catalog","feedback","inbox","notifications","activity","reports","profile"]',0,'#8b5cf6'],
+        ['staff','Staff','Process orders, respond to feedback and support messages.','["orders","feedback","inbox","notifications","activity","profile"]',0,'#3b82f6'],
+        ['customer','Customer','Shop, track orders, and manage own profile.','["profile","orders:view_own"]',0,'#10b981'],
+    ];
+    $ins = $pdo->prepare("INSERT IGNORE INTO roles (slug,name,description,permissions,is_system,color) VALUES (?,?,?,?,?,?)");
+    foreach ($roles as $r) $ins->execute($r);
 
     if ((int)$pdo->query('SELECT COUNT(*) c FROM categories')->fetch()['c'] === 0) {
         $pdo->exec("INSERT INTO categories (slug, name) VALUES

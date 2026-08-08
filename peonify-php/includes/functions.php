@@ -59,7 +59,7 @@ function current_user(): ?array {
     $st->execute([$_SESSION['uid']]);
     return $user = ($st->fetch() ?: null);
 }
-function is_admin(): bool { $u = current_user(); return $u && $u['role'] === 'admin'; }
+function is_admin(): bool { $u = current_user(); return $u && ($u['role'] === 'admin' || $u['role'] === 'super_admin'); }
 
 function require_login(string $back = ''): array {
     $u = current_user();
@@ -72,9 +72,69 @@ function require_login(string $back = ''): array {
 }
 function require_admin(): array {
     $u = require_login();
-    if ($u['role'] !== 'admin') { header('Location: ' . rel_root() . 'index.php'); exit; }
+    if (!is_admin()) { header('Location: ' . rel_root() . 'index.php'); exit; }
     return $u;
 }
+
+// ---------- roles & permissions -------------------------------------------------
+function all_roles(): array {
+    return db()->query('SELECT * FROM roles ORDER BY id')->fetchAll();
+}
+
+function get_role(string $slug): ?array {
+    $st = db()->prepare('SELECT * FROM roles WHERE slug = ?');
+    $st->execute([$slug]);
+    return $st->fetch() ?: null;
+}
+
+function user_can(string $perm): bool {
+    $u = current_user();
+    if (!$u) return false;
+    if ($u['role'] === 'admin') return true;
+    $r = get_role($u['role']);
+    if (!$r) return false;
+    $perms = json_decode((string)$r['permissions'], true) ?: [];
+    return in_array('*', $perms, true) || in_array($perm, $perms, true);
+}
+
+function has_role(string ...$slugs): bool {
+    $u = current_user();
+    if (!$u) return false;
+    if ($u['role'] === 'admin') return true;
+    return in_array($u['role'], $slugs, true);
+}
+
+function require_permission(string $perm): void {
+    if (!user_can($perm)) {
+        http_response_code(403);
+        exit('You do not have permission to access this page.');
+    }
+}
+
+function role_label(string $slug): string {
+    $r = get_role($slug);
+    return $r ? $r['name'] : ucfirst($slug);
+}
+
+function role_badge(string $slug): string {
+    $r = get_role($slug);
+    $color = $r ? $r['color'] : '#6366f1';
+    $name = $r ? $r['name'] : ucfirst($slug);
+    return '<span class="badge" style="background:' . e($color) . '20;color:' . e($color) . '">' . e($name) . '</span>';
+}
+
+/** Migrate old role values to new slugs if needed */
+function migrate_roles(): void {
+    static $done = false;
+    if ($done) return;
+    $done = true;
+    $pdo = db();
+    $pdo->exec("UPDATE IGNORE users SET role = 'admin' WHERE role IN ('super_admin','administrator')");
+    $pdo->exec("UPDATE IGNORE users SET role = 'customer' WHERE role NOT IN (SELECT slug FROM roles)");
+}
+
+migrate_roles();
+
 /** Relative path back to the app root ("" from root pages, "../" from admin/). */
 function rel_root(): string {
     return str_contains(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '/admin/') ? '../' : '';
@@ -218,7 +278,7 @@ function ui_product_card(array $p): void { ?>
         <span class="price"><?= money(effective_price($p)) ?>
           <?php if ($p['discount_percent'] > 0): ?><s><?= money((int)$p['price_cents']) ?></s><?php endif; ?>
         </span>
-        <?php if (!is_admin() && $p['in_stock']): ?>
+        <?php if (!user_can('orders') && $p['in_stock']): ?>
         <button class="btn btn-outline btn-sm" data-add-cart data-id="<?= (int)$p['id'] ?>"
           data-name="<?= e($p['name']) ?>" data-price="<?= effective_price($p) ?>"><i data-lucide="shopping-bag"></i> Add</button>
         <?php endif; ?>

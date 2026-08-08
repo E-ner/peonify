@@ -14,6 +14,8 @@ $NAV = [
     'inbox.php' => ['inbox', 'Support'],
     'notifications.php' => ['bell', 'Notifications'],
     'activity.php' => ['activity', 'Activity'],
+    'users.php' => ['users', 'Users'],
+    'roles.php' => ['shield', 'Roles'],
     'profile.php' => ['user-round', 'Profile'],
 ];
 ?>

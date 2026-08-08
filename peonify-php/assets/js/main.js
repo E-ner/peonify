@@ -40,6 +40,9 @@ function refreshIcons() {
 }
 
 /* ---------- cart (localStorage) ---------- */
+/* screenshot mode (dev): ?shot=1 hides the cookie banner; &seedcart=1 fills a demo cart */
+var shotmode = location.search.indexOf("shot=1") >= 0;
+
 var Cart = {
   key: "peonify_cart",
   read: function () {
@@ -87,6 +90,14 @@ var Cart = {
     });
   }
 };
+
+if (shotmode && location.search.indexOf("seedcart=1") >= 0) {
+  localStorage.setItem(Cart.key, JSON.stringify([
+    { line_id: "s1", product_id: 1, name: "Blush Peony Dream", unit_price_cents: 12900, quantity: 2 },
+    { line_id: "s2", product_id: null, name: "Custom Bouquet — Classic · White Peony · Olive Branch · Ceramic Vessel",
+      unit_price_cents: 12100, quantity: 1, custom_config: { size: "Classic", focal: "White Peony", foliage: "Olive Branch", packaging: "Ceramic Vessel" } }
+  ]));
+}
 
 /* ---------- delegated events (safe to attach immediately) ---------- */
 document.addEventListener("click", function (ev) {
@@ -204,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /* cookie banner (localStorage consent) */
   var banner = document.getElementById("cookieBanner");
   if (banner) {
-    if (!localStorage.getItem("peonify_cookie_consent")) banner.hidden = false;
+    if (!shotmode && !localStorage.getItem("peonify_cookie_consent")) banner.hidden = false;
     banner.querySelectorAll("[data-cookie]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         localStorage.setItem("peonify_cookie_consent", btn.dataset.cookie);

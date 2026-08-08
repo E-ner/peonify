@@ -40,15 +40,16 @@ $pageTitle = $pageTitle ?? 'Peonify — Luxury Floral Atelier';
       <a href="contact.php">Contact</a>
     </nav>
     <div class="nav-actions">
-      <?php if (!$me || $me['role'] !== 'admin'): ?>
+      <?php if (!$me || !user_can('orders:deliver')): ?>
       <a href="cart.php" class="btn btn-outline btn-sm cart-btn"><i data-lucide="shopping-bag"></i> Cart <span class="badge cart-count" data-cart-count hidden>0</span></a>
       <?php endif; ?>
       <?php if ($me): ?>
-        <a href="<?= $me['role'] === 'admin' ? 'admin/index.php' : 'account.php#notifications' ?>" class="icon-btn bell" title="Notifications">
+        <a href="<?= is_admin() ? 'admin/index.php' : 'account.php#notifications' ?>" class="icon-btn bell" title="Notifications">
           <i data-lucide="bell"></i><?php if ($unread): ?><span class="badge"><?= $unread ?></span><?php endif; ?>
         </a>
-        <a href="<?= $me['role'] === 'admin' ? 'admin/index.php' : 'account.php' ?>" class="avatar" title="My Dashboard">
+        <a href="<?= is_admin() ? 'admin/index.php' : 'account.php' ?>" class="avatar" title="My Dashboard" style="position:relative">
           <?php if ($me['avatar_url']): ?><img src="<?= e($me['avatar_url']) ?>" alt=""><?php else: ?><?= e(initials($me['name'])) ?><?php endif; ?>
+          <?php if ($me['role'] !== 'customer'): ?><span style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;background:<?= e(get_role($me['role'])['color'] ?? '#6366f1') ?>;border:2px solid var(--bg)"></span><?php endif; ?>
         </a>
       <?php else: ?>
         <a href="login.php" class="btn btn-primary btn-sm">Sign In</a>
