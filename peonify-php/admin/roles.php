@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $desc = trim($_POST['description'] ?? '');
         $perms = $_POST['permissions'] ?? [];
         if (!is_array($perms)) $perms = [$perms];
+        $perms[] = 'dashboard';
+        $perms[] = 'profile';
         $color = trim($_POST['color'] ?? '#6366f1');
         if ($slug && $name) {
             try {
@@ -41,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $desc = trim($_POST['description'] ?? '');
             $perms = $_POST['permissions'] ?? [];
             if (!is_array($perms)) $perms = [$perms];
+            $perms[] = 'dashboard';
+            $perms[] = 'profile';
             $color = trim($_POST['color'] ?? '#6366f1');
             if ($name) {
                 $pdo->prepare('UPDATE roles SET name = ?, description = ?, permissions = ?, color = ? WHERE id = ?')

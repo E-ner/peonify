@@ -11,7 +11,7 @@ $canFeedback = user_can('feedback');
 $canInbox = user_can('inbox');
 $canActivity = user_can('activity');
 
-$roleLabel = $isAdmin ? 'Admin' : ($admin['role'] ?? 'Dashboard');
+$roleLabel = $isAdmin ? 'Admin' : role_label($admin['role']);
 
 $stats = [];
 
