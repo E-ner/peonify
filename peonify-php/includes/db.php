@@ -181,7 +181,7 @@ function seed(PDO $pdo): void {
     $roles = [
         ['admin','Super Administrator','Full access to everything.','["*"]',1,'#ef4444'],
         ['manager','Manager','Manage orders, products, catalog, reports, and team.','["dashboard","orders","products","catalog","feedback","inbox","notifications","activity","reports","profile"]',0,'#8b5cf6'],
-        ['staff','Staff','Process orders, respond to feedback and support messages.','["orders","feedback","inbox","notifications","activity","profile"]',0,'#3b82f6'],
+        ['staff','Staff','Process orders, respond to feedback and support messages.','["dashboard","orders","feedback","inbox","notifications","activity","profile"]',0,'#3b82f6'],
         ['customer','Customer','Shop, track orders, and manage own profile.','["profile","orders:view_own"]',0,'#10b981'],
     ];
     $ins = $pdo->prepare("INSERT IGNORE INTO roles (slug,name,description,permissions,is_system,color) VALUES (?,?,?,?,?,?)");

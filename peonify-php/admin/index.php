@@ -11,6 +11,8 @@ $canFeedback = user_can('feedback');
 $canInbox = user_can('inbox');
 $canActivity = user_can('activity');
 
+$roleLabel = $isAdmin ? 'Admin' : ($admin['role'] ?? 'Dashboard');
+
 $stats = [];
 
 if ($isAdmin || $canReports) {
@@ -60,7 +62,7 @@ if ($isAdmin || $canActivity) {
                                    ORDER BY oe.created_at DESC LIMIT 8')->fetchAll();
 }
 ?>
-<h1>Dashboard</h1>
+<h1><?= e($roleLabel) ?> Dashboard</h1>
 <p class="muted">Your workspace at a glance.</p>
 
 <div class="stats mb mt">

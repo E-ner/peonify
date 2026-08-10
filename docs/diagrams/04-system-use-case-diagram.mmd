@@ -1,0 +1,74 @@
+left to right direction
+skinparam backgroundColor #FEFEFE
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FCE4EC
+  BorderColor #C2185B
+  ArrowColor #C2185B
+}
+skinparam actor {
+  BackgroundColor #E0F2F1
+  BorderColor #00695C
+}
+
+actor "Payment Gateway\n(Paystack)" as Payment
+actor "Email Service" as Email
+actor "Notification System" as Notify
+actor "Authentication System" as Auth
+actor "Database\n(PostgreSQL)" as DB
+actor "File Storage" as Storage
+actor "Scheduler" as Scheduler
+
+rectangle "System Services & Infrastructure" {
+  usecase "Authenticate User" as UC1
+  usecase "Create JWT Session" as UC2
+  usecase "Verify Session Token" as UC3
+  usecase "Hash Password" as UC4
+  usecase "Process Payment" as UC5
+  usecase "Verify Payment Signature" as UC6
+  usecase "Initiate Refund" as UC7
+  usecase "Send Email Notifications" as UC8
+  usecase "Send Order Confirmation" as UC8a
+  usecase "Send Delivery Reminder" as UC8b
+  usecase "Persist Data" as UC9
+  usecase "Query Products" as UC9a
+  usecase "Query Orders" as UC9b
+  usecase "Query Users" as UC9c
+  usecase "Store & Retrieve Images" as UC10
+  usecase "Upload Product Images" as UC10a
+  usecase "Upload User Avatars" as UC10b
+  usecase "Schedule Delivery Reminders" as UC11
+  usecase "Send In-App Notifications" as UC12
+  usecase "Log Activity Events" as UC13
+  usecase "Generate Revenue Metrics" as UC14
+}
+
+Auth --> UC1
+Auth --> UC2
+Auth --> UC3
+Auth --> UC4
+Payment --> UC5
+Payment --> UC6
+Payment --> UC7
+Email --> UC8
+Email --> UC8a
+Email --> UC8b
+DB --> UC9
+DB --> UC9a
+DB --> UC9b
+DB --> UC9c
+Storage --> UC10
+Storage --> UC10a
+Storage --> UC10b
+Scheduler --> UC11
+Notify --> UC12
+Notify --> UC13
+Notify --> UC14
+
+UC9 ..> UC9a : <<include>>
+UC9 ..> UC9b : <<include>>
+UC9 ..> UC9c : <<include>>
+UC10 ..> UC10a : <<include>>
+UC10 ..> UC10b : <<include>>
+UC8 ..> UC8a : <<include>>
+UC8 ..> UC8b : <<include>>

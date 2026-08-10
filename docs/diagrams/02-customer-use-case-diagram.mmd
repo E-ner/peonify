@@ -1,0 +1,112 @@
+left to right direction
+skinparam backgroundColor #FEFEFE
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #E8F5E9
+  BorderColor #2E7D32
+  ArrowColor #2E7D32
+}
+skinparam actor {
+  BackgroundColor #FFF9C4
+  BorderColor #F57F17
+}
+
+actor "Guest" as Guest
+actor "Customer" as Customer
+
+rectangle "Storefront (Customer-Facing)" {
+  usecase "Browse Products" as UC1
+  usecase "Filter by Category/Collection" as UC2
+  usecase "View Product Details" as UC3
+  usecase "Read Reviews" as UC4
+  usecase "Search Products" as UC5
+  usecase "Register Account" as UC6
+  usecase "Login / Logout" as UC7
+  usecase "Build Custom Bouquet" as UC8
+  usecase "Select Size" as UC8a
+  usecase "Choose Focal Flower" as UC8b
+  usecase "Choose Foliage" as UC8c
+  usecase "Choose Packaging" as UC8d
+  usecase "Preview Bouquet" as UC8e
+  usecase "Add to Cart" as UC9
+  usecase "Update Cart Items" as UC10
+  usecase "Remove from Cart" as UC11
+  usecase "Proceed to Checkout" as UC12
+  usecase "Enter Delivery Details" as UC13
+  usecase "Schedule Delivery Date/Time" as UC14
+  usecase "Add Gift Note" as UC15
+  usecase "Save Delivery Address" as UC16
+  usecase "Select Payment Method" as UC17
+  usecase "Process Payment" as UC18
+  usecase "View Payment Confirmation" as UC19
+  usecase "View Order History" as UC20
+  usecase "Track Delivery Status" as UC21
+  usecase "View Order Details" as UC22
+  usecase "Write Product Review" as UC23
+  usecase "Rate Product" as UC24
+  usecase "View Notifications" as UC25
+  usecase "Mark Notifications as Read" as UC26
+  usecase "Update Profile" as UC27
+  usecase "Change Password" as UC28
+  usecase "Update Phone Number" as UC29
+  usecase "Update Avatar" as UC30
+  usecase "Manage Saved Addresses" as UC31
+  usecase "Contact Support" as UC32
+  usecase "Accept Cookie Consent" as UC33
+  usecase "View About Us / Terms" as UC34
+}
+
+Guest --> UC1
+Guest --> UC2
+Guest --> UC3
+Guest --> UC4
+Guest --> UC5
+Guest --> UC6
+Guest --> UC32
+Guest --> UC33
+Guest --> UC34
+
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+Customer --> UC7
+Customer --> UC8
+Customer --> UC9
+Customer --> UC10
+Customer --> UC11
+Customer --> UC12
+Customer --> UC13
+Customer --> UC14
+Customer --> UC15
+Customer --> UC16
+Customer --> UC17
+Customer --> UC18
+Customer --> UC19
+Customer --> UC20
+Customer --> UC21
+Customer --> UC22
+Customer --> UC23
+Customer --> UC24
+Customer --> UC25
+Customer --> UC26
+Customer --> UC27
+Customer --> UC28
+Customer --> UC29
+Customer --> UC30
+Customer --> UC31
+Customer --> UC32
+Customer --> UC33
+Customer --> UC34
+
+UC8 ..> UC8a : <<include>>
+UC8 ..> UC8b : <<include>>
+UC8 ..> UC8c : <<include>>
+UC8 ..> UC8d : <<include>>
+UC8 ..> UC8e : <<include>>
+UC12 ..> UC13 : <<include>>
+UC12 ..> UC16 : <<include>>
+UC18 ..> UC19 : <<extend>>
+UC18 ..> UC25 : <<extend>>
+UC20 ..> UC21 : <<extend>>

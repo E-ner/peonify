@@ -1,0 +1,126 @@
+left to right direction
+skinparam backgroundColor #FEFEFE
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FFF3E0
+  BorderColor #E65100
+  ArrowColor #E65100
+}
+skinparam actor {
+  BackgroundColor #E1F5FE
+  BorderColor #0277BD
+}
+
+actor "Admin" as Admin
+actor "System" as System
+
+rectangle "Admin Workspace" {
+  usecase "Login / Logout" as UC1
+  usecase "View Admin Dashboard" as UC2
+  usecase "View Revenue Overview" as UC3
+  usecase "View Total Revenue" as UC4
+  usecase "View Paid vs Delivered" as UC5
+  usecase "View Top Sellers" as UC6
+  usecase "View Active Orders Count" as UC7
+  usecase "View Products Count" as UC8
+  usecase "View Customers Count" as UC9
+  usecase "Manage Products" as UC10
+  usecase "Create Product" as UC10a
+  usecase "Edit Product" as UC10b
+  usecase "Delete Product" as UC10c
+  usecase "Upload Product Image" as UC10d
+  usecase "Set Product Discount" as UC10e
+  usecase "Manage Product Stock" as UC10f
+  usecase "Manage Categories" as UC11
+  usecase "Create Category" as UC11a
+  usecase "Edit Category" as UC11b
+  usecase "Delete Category" as UC11c
+  usecase "Manage Collections" as UC12
+  usecase "Create Collection" as UC12a
+  usecase "Edit Collection" as UC12b
+  usecase "Delete Collection" as UC12c
+  usecase "Manage Orders" as UC13
+  usecase "Search Orders" as UC13a
+  usecase "Filter Orders by Status" as UC13b
+  usecase "View Order Details" as UC13c
+  usecase "Mark Order as Paid" as UC13d
+  usecase "Mark Order as Delivered" as UC13e
+  usecase "View Activity Log" as UC14
+  usecase "Manage Users" as UC15
+  usecase "Create User" as UC15a
+  usecase "Edit User" as UC15b
+  usecase "Delete User" as UC15c
+  usecase "Assign Roles" as UC15d
+  usecase "View Customer Reviews" as UC16
+  usecase "Respond to Reviews" as UC16a
+  usecase "View Contact Messages" as UC17
+  usecase "Respond to Messages" as UC17a
+  usecase "View Notifications" as UC18
+  usecase "Receive New Order Alerts" as UC18a
+  usecase "Receive Message Alerts" as UC18b
+  usecase "Receive Review Alerts" as UC18c
+  usecase "Manage Admin Profile" as UC19
+  usecase "Update Admin Avatar" as UC19a
+  usecase "Change Admin Password" as UC19b
+}
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+
+System --> UC18a : triggers
+System --> UC18b : triggers
+System --> UC18c : triggers
+System --> UC25 : triggers
+System --> UC26 : triggers
+
+UC10 ..> UC10a : <<include>>
+UC10 ..> UC10b : <<include>>
+UC10 ..> UC10c : <<include>>
+UC10 ..> UC10d : <<include>>
+UC10 ..> UC10e : <<include>>
+UC10 ..> UC10f : <<include>>
+
+UC11 ..> UC11a : <<include>>
+UC11 ..> UC11b : <<include>>
+UC11 ..> UC11c : <<include>>
+
+UC12 ..> UC12a : <<include>>
+UC12 ..> UC12b : <<include>>
+UC12 ..> UC12c : <<include>>
+
+UC13 ..> UC13a : <<include>>
+UC13 ..> UC13b : <<include>>
+UC13 ..> UC13c : <<include>>
+UC13 ..> UC13d : <<include>>
+UC13 ..> UC13e : <<include>>
+
+UC15 ..> UC15a : <<include>>
+UC15 ..> UC15b : <<include>>
+UC15 ..> UC15c : <<include>>
+UC15 ..> UC15d : <<include>>
+
+UC16 ..> UC16a : <<extend>>
+UC17 ..> UC17a : <<extend>>
+UC18 ..> UC18a : <<extend>>
+UC18 ..> UC18b : <<extend>>
+UC18 ..> UC18c : <<extend>>
+
+UC19 ..> UC19a : <<include>>
+UC19 ..> UC19b : <<include>>

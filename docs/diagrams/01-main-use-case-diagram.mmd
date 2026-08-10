@@ -1,0 +1,81 @@
+left to right direction
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #E3F2FD
+  BorderColor #1976D2
+  ArrowColor #1976D2
+}
+skinparam actor {
+  BackgroundColor #FFF3E0
+  BorderColor #F57C00
+}
+skinparam rectangle {
+  BackgroundColor #F3E5F5
+  BorderColor #7B1FA2
+}
+
+actor "Guest" as Guest
+actor "Customer" as Customer
+actor "Admin" as Admin
+
+rectangle "Peonify Floral E-Commerce Platform" {
+  usecase "Browse Product Catalog" as UC1
+  usecase "View Static Pages" as UC2
+  usecase "Register Account" as UC3
+  usecase "Login / Logout" as UC4
+  usecase "Customize Bouquet" as UC5
+  usecase "Manage Shopping Cart" as UC6
+  usecase "Checkout & Schedule Delivery" as UC7
+  usecase "Make Payment" as UC8
+  usecase "View Order History" as UC9
+  usecase "Receive Notifications" as UC10
+  usecase "Write Product Reviews" as UC11
+  usecase "Manage Profile & Addresses" as UC12
+  usecase "Contact Support" as UC13
+  usecase "Manage Dashboard" as UC14
+  usecase "Manage Products" as UC15
+  usecase "Manage Categories & Collections" as UC16
+  usecase "Manage Orders" as UC17
+  usecase "View Analytics & Revenue" as UC18
+  usecase "Manage Users & Roles" as UC19
+  usecase "Respond to Messages" as UC20
+  usecase "View Customer Feedback" as UC21
+  usecase "View Activity Log" as UC22
+}
+
+Guest --> UC1
+Guest --> UC2
+Guest --> UC3
+Guest --> UC13
+
+Customer --> UC1
+Customer --> UC2
+Customer --> UC4
+Customer --> UC5
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+Customer --> UC9
+Customer --> UC10
+Customer --> UC11
+Customer --> UC12
+Customer --> UC13
+
+Admin --> UC2
+Admin --> UC4
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+Admin --> UC20
+Admin --> UC21
+Admin --> UC22
+
+UC7 ..> UC8 : <<include>>
+UC7 ..> UC12 : <<include>>
+UC8 ..> UC10 : <<extend>>
+UC17 ..> UC18 : <<extend>>
