@@ -97,6 +97,7 @@ function user_can(string $perm): bool {
     $u = current_user();
     if (!$u) return false;
     if ($u['role'] === 'admin') return true;
+    if ($u['role'] !== 'customer' && in_array($perm, ['dashboard', 'profile', 'notifications'], true)) return true;
     $r = get_role($u['role']);
     if (!$r) return false;
     $perms = json_decode((string)$r['permissions'], true) ?: [];
