@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__DIR__, 2) . '/includes/functions.php';
-$admin = require_admin();
+$admin = require_staff();
 maybe_run_reminders();
 $unreadA = unread_count((int)$admin['id']);
 $active = basename($_SERVER['SCRIPT_NAME']);
@@ -18,6 +18,22 @@ $NAV = [
     'roles.php' => ['shield', 'Roles'],
     'profile.php' => ['user-round', 'Profile'],
 ];
+$NAV_PERMS = [
+    'index.php' => 'dashboard',
+    'orders.php' => 'orders',
+    'products.php' => 'products',
+    'catalog.php' => 'catalog',
+    'feedback.php' => 'feedback',
+    'inbox.php' => 'inbox',
+    'notifications.php' => 'notifications',
+    'activity.php' => 'activity',
+    'users.php' => 'users',
+    'roles.php' => 'roles',
+    'profile.php' => 'profile',
+];
+foreach ($NAV_PERMS as $file => $perm) {
+    if (!user_can($perm)) unset($NAV[$file]);
+}
 ?>
 <!doctype html>
 <html lang="en">

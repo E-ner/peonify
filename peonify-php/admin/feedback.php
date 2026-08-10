@@ -2,6 +2,7 @@
 $pageTitle = 'Feedback — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('feedback');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     csrf_check();

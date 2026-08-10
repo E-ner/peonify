@@ -2,6 +2,7 @@
 $pageTitle = 'Catalog — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('catalog');
 $slugify = fn(string $s) => trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($s)), '-');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

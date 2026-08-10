@@ -2,6 +2,7 @@
 $pageTitle = 'Products — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('products');
 $categories = $pdo->query('SELECT * FROM categories ORDER BY id')->fetchAll();
 $collections = $pdo->query('SELECT * FROM collections ORDER BY id')->fetchAll();
 

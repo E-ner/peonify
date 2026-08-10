@@ -2,6 +2,7 @@
 $pageTitle = 'Activity — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('activity');
 $events = $pdo->query('SELECT oe.*, o.reference, o.customer_name FROM order_events oe
                        JOIN orders o ON o.id = oe.order_id ORDER BY oe.created_at DESC LIMIT 200')->fetchAll();
 [$pageItems, $pg, $pgs, ] = paginate($events, 10);

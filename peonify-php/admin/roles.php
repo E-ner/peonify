@@ -2,6 +2,7 @@
 $pageTitle = 'Roles — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('roles');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();

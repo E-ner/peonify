@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/functions.php';
-if (current_user()) { header('Location: ' . (is_admin() ? 'admin/index.php' : 'account.php')); exit; }
+if (current_user()) { header('Location: ' . (current_user()['role'] === 'customer' ? 'account.php' : 'admin/index.php')); exit; }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_regenerate_id(true);
         $_SESSION['uid'] = (int)$user['id'];
         flash('ok', 'Welcome back, ' . explode(' ', $user['name'])[0] . '!');
-        $to = $_SESSION['after_login'] ?? ($user['role'] === 'admin' ? 'admin/index.php' : 'account.php');
+        $to = $_SESSION['after_login'] ?? ($user['role'] === 'customer' ? 'account.php' : 'admin/index.php');
         unset($_SESSION['after_login']);
         header('Location: ' . $to);
         exit;

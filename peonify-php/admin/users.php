@@ -2,6 +2,7 @@
 $pageTitle = 'Users — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('users');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();

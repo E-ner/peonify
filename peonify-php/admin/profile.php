@@ -2,6 +2,7 @@
 $pageTitle = 'Profile — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('profile');
 $uid = (int)$admin['id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

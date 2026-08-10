@@ -76,6 +76,12 @@ function require_admin(): array {
     return $u;
 }
 
+function require_staff(): array {
+    $u = require_login();
+    if ($u['role'] === 'customer') { header('Location: ' . rel_root() . 'index.php'); exit; }
+    return $u;
+}
+
 // ---------- roles & permissions -------------------------------------------------
 function all_roles(): array {
     return db()->query('SELECT * FROM roles ORDER BY id')->fetchAll();

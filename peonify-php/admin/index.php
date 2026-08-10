@@ -2,6 +2,7 @@
 $pageTitle = 'Dashboard — Atelier Admin';
 include __DIR__ . '/includes/layout_top.php';
 $pdo = db();
+require_permission('dashboard');
 
 $stats = [
     'revenue' => (int)$pdo->query("SELECT COALESCE(SUM(total_cents),0) s FROM orders WHERE status <> 'pending_payment'")->fetch()['s'],
